@@ -7,11 +7,21 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Juego de las 8 Reinas</h1>
+    <h1>Juego de las N Reinas</h1>
+    <div>
+        <label for="input-n">Tamaño del tablero:</label>
+        <input type="number" id="input-n" min="2" max="30" value="8">
+    </div>
+    <div>
+        <label for="input-m">Número de reinas:</label>
+        <input type="number" id="input-m" min="1" max="30" value="8">
+    </div>
+    <button id="generar">Generar Tablero</button>
+    <button id="solucion">Mostrar Solución</button>
     <div id="tablero"></div>
     <div id="vidas">Vidas: <span id="vidas-count">3</span></div>
     <button id="reiniciar">Reiniciar</button>
-    <p class="explicacion">El objetivo del juego es colocar 8 reinas en un tablero de ajedrez de 8x8 de manera que ninguna reina pueda atacar a otra. Puedes recolocarlas. Si intentas colocar una reina en una posición donde pueda ser atacada, perderás una vida. Tienes 3 vidas. ¡Buena suerte!</p>
+    <p class="explicacion">El objetivo del juego es colocar un número de reinas en un tablero de ajedrez de manera que ninguna reina pueda atacar a otra. Puedes recolocarlas. Si intentas colocar una reina en una posición donde pueda ser atacada, perderás una vida. Tienes 3 vidas. ¡Buena suerte!</p>
     <script src="script.js"></script>
 </body>
 </html>

@@ -11,22 +11,22 @@ body {
 
 #tablero {
     display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    grid-template-rows: repeat(8, 1fr);
     gap: 2px;
+    width: 100%;
+    max-width: 600px;
+    height: auto; /* Permitir que la altura se ajuste automáticamente */
+    aspect-ratio: unset; /* Eliminar la restricción de mantener el tablero cuadrado */
     margin: 20px auto;
-    width: 90vw;
-    max-width: 400px;
-    aspect-ratio: 1;
 }
 
 .celda {
+    width: 100%;
+    aspect-ratio: 1 / 1; /* Mantener las celdas cuadradas */
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 1.5rem;
     cursor: pointer;
-    width: 100%;
-    height: 100%;
 }
 
 .celda.blanca {
@@ -44,16 +44,16 @@ body {
 }
 
 .reina {
-    width: 60%;
-    height: 60%;
-    background-color: rgb(205, 38, 174);
+    width: 80%;
+    height: 80%;
+    background-color: red;
     border-radius: 50%;
 }
 
 .error {
-    color: red;
-    font-size: 2rem;
+    color: white;
     font-weight: bold;
+    font-size: 2rem;
     position: absolute;
 }
 

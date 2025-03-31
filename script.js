@@ -1,9 +1,14 @@
 const tablero = document.getElementById('tablero');
 const vidasCount = document.getElementById('vidas-count');
 const reiniciarBtn = document.getElementById('reiniciar');
+const generarBtn = document.getElementById('generar');
+const solucionBtn = document.getElementById('solucion');
+const inputN = document.getElementById('input-n');
+const inputM = document.getElementById('input-m');
 let vidas = 3;
 let reinas = 0;
-const n = 8;
+let n = 8; // Tamaño inicial del tablero
+let m = 8; // Número inicial de reinas
 let tableroEstado = Array.from({ length: n }, () => Array(n).fill(0));
 
 function crearTablero() {
@@ -19,6 +24,8 @@ function crearTablero() {
             tablero.appendChild(celda);
         }
     }
+    tablero.style.gridTemplateColumns = `repeat(${n}, 1fr)`;
+    tablero.style.gridTemplateRows = `repeat(${n}, 1fr)`; // Ajustar filas dinámicamente
 }
 
 function manejarClick(event) {
@@ -50,7 +57,7 @@ function manejarClick(event) {
         tableroEstado[fila][col] = 1;
         reinas++;
 
-        if (reinas === 8) {
+        if (reinas === m) {
             setTimeout(() => {
                 alert('¡Ganaste! Puedes reiniciar el juego para jugar de nuevo.');
             }, 100); // Retraso de 100ms para permitir que el DOM se actualice
@@ -113,6 +120,61 @@ function reiniciarJuego() {
     crearTablero();
 }
 
+function generarTablero() {
+    n = parseInt(inputN.value);
+    m = parseInt(inputM.value);
+
+    if (n < 2 || n > 30 || m < 1 || m > 30) {
+        alert('El valor debe estar entre 2 y 30, y el número de reinas entre 1 y 30.');
+        return;
+    }
+
+    if (m > n) {
+        alert(`El número máximo de reinas para un tablero de ${n}x${n} es ${n}.`);
+        m = n;
+    }
+
+    reiniciarJuego();
+}
+
+function mostrarSolucion() {
+    reiniciarJuego();
+    let solucion = resolverNReinas(n, m);
+    if (!solucion) {
+        alert('No se encontró una solución.');
+        return;
+    }
+
+    solucion.forEach(([fila, col]) => {
+        const celda = tablero.querySelector(`[data-fila="${fila}"][data-col="${col}"]`);
+        celda.innerHTML = '<div class="reina"></div>';
+        tableroEstado[fila][col] = 1;
+    });
+    reinas = m;
+}
+
+function resolverNReinas(n, m) {
+    let solucion = [];
+    function backtrack(fila) {
+        if (solucion.length === m) return true;
+        if (fila >= n) return false;
+
+        for (let col = 0; col < n; col++) {
+            if (esSeguro(fila, col)) {
+                solucion.push([fila, col]);
+                tableroEstado[fila][col] = 1;
+                if (backtrack(fila + 1)) return true;
+                solucion.pop();
+                tableroEstado[fila][col] = 0;
+            }
+        }
+        return false;
+    }
+    return backtrack(0) ? solucion : null;
+}
+
+generarBtn.addEventListener('click', generarTablero);
+solucionBtn.addEventListener('click', mostrarSolucion);
 reiniciarBtn.addEventListener('click', reiniciarJuego);
 
 crearTablero();
