@@ -1,4 +1,4 @@
-# Juego de las 8 Reinas
+# Juego de las N Reinas
 
 El objetivo del juego es colocar un número reinas en un tablero de ajedrez de manera que ninguna reina pueda atacar a otra. Puedes colocar una reina haciendo clic en una celda vacía. Si haces clic en una reina, la quitarás del tablero. Si intentas colocar una reina en una posición donde pueda ser atacada, perderás una vida. Tienes 3 vidas. ¡Buena suerte!
 
